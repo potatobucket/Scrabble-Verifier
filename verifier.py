@@ -15,7 +15,7 @@ def get_scrabble_score(word):
         raise errors.WordNotFound(f"{word} is not a valid word in this dictionary!")
     else:
         scoreGet = json.loads(requestGet.text)
-        return scoreGet["value"]
+        return f"The Scrabble score for {word} is: {scoreGet["value"]}!"
 
 if __name__ == "__main__":
     scrabbleWord = get_scrabble_score(input("Which word are you checking? "))
