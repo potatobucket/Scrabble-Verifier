@@ -27,6 +27,14 @@ def remove_blanks(wordToRemoveBlanksFrom):
     else:
         return wordToRemoveBlanksFrom
 
+def verify_word(wordToVerify, wordList):
+    startingLetter = wordToVerify[0]
+    wordLength = str(len(wordToVerify))
+    if wordToVerify not in wordList[startingLetter][wordLength]:
+        return f"{wordToVerify.title()} is not a valid word in the Collins Scrabble dictionary!"
+    else:
+        return f"{wordToVerify.title()} is indeed a valid word in the Collins Scrabble dictionary!"
+
 def word_value(word):
     if len(word) > 15:
         raise errors.WordTooLong("That word's too long! The board's only fifteen squares big!")
