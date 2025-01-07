@@ -1,3 +1,6 @@
+import errors
+import re
+
 def letter_value(letter):
     letter = letter.lower()
     if letter in "aeilnorstu":
@@ -15,8 +18,20 @@ def letter_value(letter):
     elif letter in "zq":
         return 10
 
+def remove_blanks(wordToRemoveBlanksFrom):
+    if "[" in wordToRemoveBlanksFrom or "]" in wordToRemoveBlanksFrom:
+        word = wordToRemoveBlanksFrom
+        for blank in re.findall(r"\[\w\]", wordToRemoveBlanksFrom):
+            word = word.replace(blank, "")
+        return word
+    else:
+        return wordToRemoveBlanksFrom
+
 def word_value(word):
+    if len(word) > 15:
+        raise errors.WordTooLong("That word's too long! The board's only fifteen squares big!")
     total = 0
+    word = remove_blanks(word)
     for letter in word:
         total += letter_value(letter)
     return total
