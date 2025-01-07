@@ -20,10 +20,10 @@ def letter_value(letter):
 
 def remove_blanks(wordToRemoveBlanksFrom):
     if "[" in wordToRemoveBlanksFrom or "]" in wordToRemoveBlanksFrom:
-        word = wordToRemoveBlanksFrom
+        blanklessWord = wordToRemoveBlanksFrom
         for blank in re.findall(r"\[\w\]", wordToRemoveBlanksFrom):
-            word = word.replace(blank, "")
-        return word
+            blanklessWord = blanklessWord.replace(blank, "")
+        return blanklessWord
     else:
         return wordToRemoveBlanksFrom
 
@@ -37,7 +37,7 @@ def verify_word(wordToVerify, wordList):
 
 def word_value(word):
     if len(word) > 15:
-        raise errors.WordTooLong("That word's too long! The board's only fifteen squares big!")
+        raise errors.WordTooLong(f"{word.title()} is {len(word) - 15} letters longer than the board!")
     total = 0
     word = remove_blanks(word)
     for letter in word:
