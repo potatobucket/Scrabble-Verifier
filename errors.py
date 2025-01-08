@@ -3,3 +3,6 @@ class WordNotFound(Exception):
 
 class WordTooLong(Exception):
     pass
+
+class WordTooShort(Exception):
+    pass

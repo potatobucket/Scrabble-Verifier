@@ -27,19 +27,27 @@ def remove_blanks(wordToRemoveBlanksFrom):
     else:
         return wordToRemoveBlanksFrom
 
-def verify_word(wordToVerify, wordList):
-    startingLetter = wordToVerify[0]
-    wordLength = str(len(wordToVerify))
-    if wordToVerify not in wordList[startingLetter][wordLength]:
-        return f"{wordToVerify.title()} is not a valid word in the Collins Scrabble dictionary!"
+def valid_length(wordToMeasure):
+    if len(wordToMeasure) < 2:
+        raise errors.WordTooShort(f"{wordToMeasure.title()} is shorter than any legal move! Not valid!")
+    elif len(wordToMeasure) > 15:
+        raise errors.WordTooLong(f"{wordToMeasure.title()} is {len(wordToMeasure) - 15} letters longer than the board! Not valid!")
     else:
-        return f"{wordToVerify.title()} is indeed a valid word in the Collins Scrabble dictionary!"
+        return True
+
+def verify_word(wordToVerify, wordList):
+    if valid_length(wordToVerify):
+        startingLetter = wordToVerify[0]
+        wordLength = str(len(wordToVerify))
+        if wordToVerify not in wordList[startingLetter][wordLength]:
+            return f"{wordToVerify.title()} is not a valid word in the Collins Scrabble dictionary!"
+        else:
+            return f"{wordToVerify.title()} is indeed a valid word in the Collins Scrabble dictionary!"
 
 def word_value(word):
-    if len(word) > 15:
-        raise errors.WordTooLong(f"{word.title()} is {len(word) - 15} letters longer than the board!")
-    total = 0
-    word = remove_blanks(word)
-    for letter in word:
-        total += letter_value(letter)
-    return total
+    if valid_length(word):
+        total = 0
+        word = remove_blanks(word)
+        for letter in word:
+            total += letter_value(letter)
+        return total
