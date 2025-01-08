@@ -1,7 +1,15 @@
+"""
+A module to handle the logic for word verification and scoring.
+"""
+
 import errors
+import json
 import re
 
-def letter_value(letter):
+def letter_value(letter: str):
+    """
+Assigns a number value to a letter based on its frequency in English words.
+    """
     letter = letter.lower()
     if letter in "aeilnorstu":
         return 1
@@ -18,7 +26,10 @@ def letter_value(letter):
     elif letter in "zq":
         return 10
 
-def remove_blanks(wordToRemoveBlanksFrom):
+def remove_blanks(wordToRemoveBlanksFrom: str):
+    """
+Removes the blank tiles from a word using a tag system (i.e. if a letter is inside squarenthesis ([z]) it gets removed from the word).
+    """
     if "[" in wordToRemoveBlanksFrom or "]" in wordToRemoveBlanksFrom:
         blanklessWord = wordToRemoveBlanksFrom
         for blank in re.findall(r"\[\w\]", wordToRemoveBlanksFrom):
@@ -27,7 +38,10 @@ def remove_blanks(wordToRemoveBlanksFrom):
     else:
         return wordToRemoveBlanksFrom
 
-def valid_length(wordToMeasure):
+def valid_length(wordToMeasure: str):
+    """
+Checks if a word is a legal length for a Scrabble play.
+    """
     if len(wordToMeasure) < 2:
         raise errors.WordTooShort(f"{wordToMeasure.title()} is shorter than any legal move! Not valid!")
     elif len(wordToMeasure) > 15:
@@ -35,19 +49,27 @@ def valid_length(wordToMeasure):
     else:
         return True
 
-def verify_word(wordToVerify, wordList):
+def verify_word(wordToVerify: str):
+    """
+Verifies whether or not a word is a valid word in the Collins Scrabble dictionary.
+    """
     if valid_length(wordToVerify):
-        startingLetter = wordToVerify[0]
-        wordLength = str(len(wordToVerify))
+        with open("words_json.json") as words:
+            wordList: dict = json.load(words)
+        startingLetter: str = wordToVerify[0]
+        wordLength: str = str(len(wordToVerify))
         if wordToVerify not in wordList[startingLetter][wordLength]:
             return f"{wordToVerify.title()} is not a valid word in the Collins Scrabble dictionary!"
         else:
             return f"{wordToVerify.title()} is indeed a valid word in the Collins Scrabble dictionary!"
 
-def word_value(word):
+def word_value(word: str):
+    """
+Tallies up the value of a given word.
+    """
     if valid_length(word):
-        total = 0
-        word = remove_blanks(word)
+        total: int = 0
+        word: str = remove_blanks(word)
         for letter in word:
             total += letter_value(letter)
         return total

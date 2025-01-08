@@ -1,3 +1,7 @@
+"""
+A module to hold custom errors.
+"""
+
 class WordNotFound(Exception):
     pass
 
