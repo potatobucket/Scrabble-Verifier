@@ -10,7 +10,40 @@ def add_multiplier(wordToMultiply: str):
     """
 Adds a multiplier to either the letter or the entire word.
     """
-    pass
+    doubleLetter: str = "\\$\\w"
+    doubleWord: str = "\\^\\w"
+
+    tripleLetter: str = "\\&\\w"
+    tripleWord: str = "\\@\\w"
+
+    doubleLetters: list = re.findall(doubleLetter, wordToMultiply)
+    doubleWords: list = re.findall(doubleWord, wordToMultiply)
+    tripleLetters: list = re.findall(tripleLetter, wordToMultiply)
+    tripleWords: list = re.findall(tripleWord, wordToMultiply)
+
+    if len(doubleLetters) > 0:
+        for matchDoubleLetter in doubleLetters:
+            doubledLetter: str = matchDoubleLetter[-1] * 2
+            wordToMultiply = wordToMultiply.replace(matchDoubleLetter, doubledLetter)
+    
+    if len(tripleLetters) > 0:
+        for matchTripleLetter in tripleLetters:
+            tripledLetter: str = matchTripleLetter[-1] * 3
+            wordToMultiply = wordToMultiply.replace(matchTripleLetter, tripledLetter)
+
+    if len(doubleWords) > 0:
+        for matchedDoubleWord in doubleWords:
+            doubleWordLetter: str = matchedDoubleWord[-1]
+            wordToMultiply = wordToMultiply.replace(matchedDoubleWord, doubleWordLetter)
+        wordToMultiply = wordToMultiply * 2 ** len(doubleWords)
+    
+    if len(tripleWords) > 0:
+        for matchedTripleWord in tripleWords:
+            tripleWordLetter: str = matchedTripleWord[-1]
+            wordToMultiply = wordToMultiply.replace(matchedTripleWord, tripleWordLetter)
+        wordToMultiply = wordToMultiply * 3 ** len(tripleWords)
+
+    return wordToMultiply
 
 def define_word(wordToDefine: str):
     """
@@ -81,9 +114,9 @@ def word_value(word: str):
     """
 Tallies up the value of a given word.
     """
-    if valid_length(word):
-        total: int = 0
-        word: str = remove_blanks(word)
-        for letter in word:
-            total += letter_value(letter)
-        return total
+    total: int = 0
+    word: str = remove_blanks(word)
+    word = add_multiplier(word)
+    for letter in word:
+        total += letter_value(letter)
+    return total
