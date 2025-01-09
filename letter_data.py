@@ -111,7 +111,7 @@ def word_value(word: str):
 Tallies up the value of a given word.
     """
     total: int = 0
-    word: str = remove_blanks(word)
+    word = remove_blanks(word)
     word = add_multiplier(word)
     for letter in word:
         total += letter_value(letter)
