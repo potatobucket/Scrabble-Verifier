@@ -6,6 +6,12 @@ import errors
 import json
 import re
 
+def add_multiplier(wordToMultiply: str):
+    """
+Adds a multiplier to either the letter or the entire word.
+    """
+    pass
+
 def define_word(wordToDefine: str):
     """
 Returns the definition of a given word.
