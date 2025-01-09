@@ -9,6 +9,13 @@ import re
 def add_multiplier(wordToMultiply: str):
     """
 Adds a multiplier to either the letter or the entire word.
+
+Each multiplier is denoted by a tag immediately preceding the letter:
+
+    - $ : double letter
+    - ^ : double word
+    - & : triple letter
+    - @ : triple word
     """
     doubleLetter: str = "\\$\\w"
     doubleWord: str = "\\^\\w"
@@ -74,7 +81,7 @@ def remove_blanks(wordToRemoveBlanksFrom: str):
 Removes the blank tiles from a word using a tag system (i.e. if a letter is inside squarenthesis ([z]) it gets removed from the word).
     """
     if "[" in wordToRemoveBlanksFrom or "]" in wordToRemoveBlanksFrom:
-        blanklessWord = wordToRemoveBlanksFrom
+        blanklessWord: str = wordToRemoveBlanksFrom
         for blank in re.findall(r"\[\w\]", wordToRemoveBlanksFrom):
             blanklessWord = blanklessWord.replace(blank, "_")
         return blanklessWord

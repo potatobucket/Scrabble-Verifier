@@ -9,6 +9,7 @@ The program is now capable of checking the following:
   - **word scoring**:
     - each letter is assigned a value individually
     - blanks are marked with a set of squarenthesis around the letter (e.g. [w]) and are automatically stripped from the word using regular expressions as blanks are worth zero points
+    - with the right tags letters can be marked as double/triple letter/word scores and (very messily) converted into the proper multipliers
     - after the blanks are stripped the value of each remaining letter is added together
 
   - **offline access**:
