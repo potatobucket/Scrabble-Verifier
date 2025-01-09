@@ -6,6 +6,12 @@ import errors
 import json
 import re
 
+def define_word(wordToDefine: str):
+    """
+Returns the definition of a given word.
+    """
+    return "THERE ARE NO DEFINITIONS IN SCRABBLE! ONLY WORDS!"
+
 def letter_value(letter: str):
     """
 Assigns a number value to a letter based on its frequency in English words.
@@ -25,6 +31,8 @@ Assigns a number value to a letter based on its frequency in English words.
         return 8
     elif letter in "zq":
         return 10
+    elif letter == "_":
+        return 0
 
 def remove_blanks(wordToRemoveBlanksFrom: str):
     """
@@ -33,7 +41,7 @@ Removes the blank tiles from a word using a tag system (i.e. if a letter is insi
     if "[" in wordToRemoveBlanksFrom or "]" in wordToRemoveBlanksFrom:
         blanklessWord = wordToRemoveBlanksFrom
         for blank in re.findall(r"\[\w\]", wordToRemoveBlanksFrom):
-            blanklessWord = blanklessWord.replace(blank, "")
+            blanklessWord = blanklessWord.replace(blank, "_")
         return blanklessWord
     else:
         return wordToRemoveBlanksFrom
