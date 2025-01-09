@@ -17,11 +17,11 @@ Each multiplier is denoted by a tag immediately preceding the letter:
     - & : triple letter
     - @ : triple word
     """
-    doubleLetter: str = "\\$\\w"
-    doubleWord: str = "\\^\\w"
+    doubleLetter: str = r"\$\w"
+    doubleWord: str = r"\^\w"
 
-    tripleLetter: str = "\\&\\w"
-    tripleWord: str = "\\@\\w"
+    tripleLetter: str = r"\&\w"
+    tripleWord: str = r"\@\w"
 
     doubleLetters: list = re.findall(doubleLetter, wordToMultiply)
     doubleWords: list = re.findall(doubleWord, wordToMultiply)
