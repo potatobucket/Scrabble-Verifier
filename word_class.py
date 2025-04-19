@@ -37,5 +37,5 @@ A word.
             "word": self.word,
             "value": self.value,
             "valid": self.verification,
-            "definition": ld.define_word(self.word)
+            "definition": self.definition
         }
