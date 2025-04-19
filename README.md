@@ -14,4 +14,7 @@ The program is now capable of checking the following:
 
   - **offline access**:
     - by using a JSON file instead of an API call the program is now 100% independent and requires no online connection.
-	    - the API--while useful--proved inadequate for my needs and this new data structure is both more robust and more complete as it uses the same list of words as one of the official Scrabble dictionaries used in tournament play.
+	    - the API--while useful--proved inadequate for my needs and this new data structure is both more robust and more complete as it uses the same list of words as one of the official Scrabble dictionaries used in tournament play
+
+  - **API coming soon**:
+    - an API back end is currently being worked on by me, a back end developer

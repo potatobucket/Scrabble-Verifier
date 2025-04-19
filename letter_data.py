@@ -2,9 +2,9 @@
 A module to handle the logic for word verification and scoring.
 """
 
-import errors
 import json
 import re
+from fastapi import HTTPException
 
 def add_multiplier(wordToMultiply: str):
     """
@@ -93,9 +93,9 @@ def valid_length(wordToMeasure: str):
 Checks if a word is a legal length for a Scrabble play.
     """
     if len(wordToMeasure) < 2:
-        raise errors.WordTooShort(f"{wordToMeasure.title()} is shorter than any legal move! Not valid!")
+        raise HTTPException(status_code = 500, detail = f"{wordToMeasure.title()} is shorter than any legal move! Not valid!")
     elif len(wordToMeasure) > 15:
-        raise errors.WordTooLong(f"{wordToMeasure.title()} is {len(wordToMeasure) - 15} letters longer than the board! Not valid!")
+        raise HTTPException(status_code = 500, detail = f"{wordToMeasure.title()} is {len(wordToMeasure) - 15} letters longer than the board. Not valid!")
     else:
         return True
 
@@ -109,9 +109,9 @@ Verifies whether or not a word is a valid word in the Collins Scrabble dictionar
         startingLetter: str = wordToVerify[0]
         wordLength: str = str(len(wordToVerify))
         if wordToVerify not in wordList[startingLetter][wordLength]:
-            return f"{wordToVerify.title()} is not a valid word in the Collins Scrabble dictionary!"
+            return False
         else:
-            return f"{wordToVerify.title()} is indeed a valid word in the Collins Scrabble dictionary!"
+            return True
 
 def word_value(word: str):
     """
