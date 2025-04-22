@@ -15,6 +15,13 @@ A word.
         return ld.define_word(self.word)
 
     @property
+    def base_letter_scores(self):
+        """
+    The scores for each individual tile.
+        """
+        return {f"{letter}": ld.letter_value(letter) for letter in self.word}
+
+    @property
     def value(self):
         """
     The value of the word. Includes letter- and word-multipliers.
@@ -36,6 +43,7 @@ A word.
         return {
             "word": self.word,
             "value": self.value,
+            "tileScores": self.base_letter_scores,
             "valid": self.verification,
             "definition": self.definition
         }
